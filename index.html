@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head> 
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ghaam Chhaya | Yabesh Thapa</title>
+    <meta name="description" content="Yabesh Thapa - Ghaam Chhaya">
+    <meta name="keywords" content="ghaamchhaya, yabesh, yabesh thapa, ghaam chhaya, ghaam chhaya yabesh thapa">
+    <meta name="author" content="Yabesh Thapa">
+    <meta name="robots" content="index, follow">
+    
+    <link rel="canonical" href="https://ghaamchhaya.com/">
+    
+    <!-- Open Graph / Facebook -->
+    <meta property="og:type" content="website">
+    <meta property="og:url" content="https://ghaamchhaya.com/">
+    <meta property="og:title" content="Ghaam Chhaya | Yabesh Thapa">
+    <meta property="og:description" content="Yabesh Thapa - Ghaam Chhaya">
+    <!-- <meta property="og:image" content="https://ghaamchhaya.com/og-image.jpg"> -->
+    
+    <!-- Twitter Card -->
+    <meta name="twitter:card" content="summary_large_image">
+    <meta name="twitter:title" content="YourStartup | Your Tagline Here">
+    <meta name="twitter:description" content="Your description for Twitter.">
+    <!-- <meta name="twitter:image" content="https://ghaamchhaya.com/twitter-image.jpg"> -->
+    
+
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
+    
+    <style>
+        body { font-family: 'Noto Sans', sans-serif; }
+        
+        .video-bg {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+        }
+        
+        .video-bg iframe {
+            width: 100vw;
+            height: 56.25vw; /* 16:9 aspect ratio */
+            min-height: 100vh;
+            min-width: 177.77vh; /* 16:9 aspect ratio */
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+        }
+        
+        .splash-btn {
+            position: relative;
+            transition: all 0.3s ease;
+        }
+        
+        .splash-btn:active {
+            transform: scale(0.95);
+            box-shadow: 0 0 0 0 rgba(89, 89, 89, 0.7);
+            animation: splash 0.6s ease-out;
+        }
+        
+        @keyframes splash {
+            0% {
+                box-shadow: 0 0 0 0 rgba(89, 89, 89, 0.7);
+            }
+            100% {
+                box-shadow: 0 0 0 20px rgba(59, 130, 246, 0);
+            }
+        }
+    </style>
+</head>
+
+<body class="bg-black overflow-hidden">
+    <div class="video-bg">
+        <iframe
+            src="https://www.youtube.com/embed/ER_q8TkTS6Y?autoplay=1&mute=1&loop=1&playlist=ER_q8TkTS6Y&controls=0&showinfo=0&rel=0&modestbranding=1&playsinline=1"
+            frameborder="0"
+            allow="autoplay; fullscreen"
+            allowfullscreen
+        ></iframe>
+    </div>
+    
+    <div class="fixed inset-0 flex items-center justify-center z-10">
+        <a 
+            href="https://uat.classxpresentation.com/global/shop/product/ghaam-chhaya" 
+            class="splash-btn px-4 py-2 mt-24 md:mt-28 bg-white/90 text-black text-sm rounded-full hover:bg-white shadow-2xl"
+        >
+            Pre Order Ghaam Chhaya
+        </a>
+    </div>
+</body>
+</html>

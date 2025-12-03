@@ -49,6 +49,27 @@
             object-fit: cover;
         }
         
+        /* Hide video controls in Safari and all browsers */
+        .video-bg video::-webkit-media-controls {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-enclosure {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-panel {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-play-button {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+        }
+        
         .video-bg::after {
             content: '';
             position: absolute;
@@ -100,7 +121,7 @@
 
 <body class="bg-black overflow-hidden">
     <div class="video-bg">
-        <video autoplay muted loop playsinline controls="false" disablePictureInPicture>
+        <video autoplay muted loop playsinline disablePictureInPicture>
             <source src="https://classxpresentation.s3.ap-southeast-1.amazonaws.com/ghaam_chhaya_intro.mp4" type="video/mp4">
         </video>
     </div>

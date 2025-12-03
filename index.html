@@ -48,6 +48,19 @@
             height: 100%;
             pointer-events: none;
             overflow: hidden;
+            clip-path: inset(0 0 0 0);
+        }
+        
+        .video-bg::before {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: transparent;
+            z-index: 2;
+            pointer-events: none;
         }
         
         .video-bg video {
@@ -58,6 +71,7 @@
             -webkit-appearance: none;
             -webkit-tap-highlight-color: transparent;
             pointer-events: none;
+            transform: scale(1.01);
         }
         
         /* Hide video controls in Safari and all browsers - iOS specific */
@@ -163,6 +177,18 @@
             }
         }
         
+        /* Overlay to cover controls area */
+        .video-controls-overlay {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 100px;
+            background: transparent;
+            z-index: 999;
+            pointer-events: none;
+        }
+        
         .video-bg::after {
             content: '';
             position: absolute;
@@ -217,6 +243,7 @@
         <video autoplay muted loop playsinline disablePictureInPicture webkit-playsinline preload="auto" x-webkit-airplay="deny" style="pointer-events: none; -webkit-touch-callout: none;">
             <source src="https://classxpresentation.s3.ap-southeast-1.amazonaws.com/ghaam_chhaya_intro.mp4" type="video/mp4">
         </video>
+        <div class="video-controls-overlay"></div>
     </div>
     
     <div class="fixed inset-0 flex items-center justify-center z-10">
@@ -229,24 +256,100 @@
     </div>
     
     <script>
-        // Remove controls attribute for iOS
+        // Force video play and remove controls for iOS
         (function() {
             const video = document.querySelector('.video-bg video');
             if (video) {
-                video.removeAttribute('controls');
-                video.controls = false;
+                // Ensure video is muted and set up for autoplay
+                video.muted = true;
+                video.setAttribute('muted', '');
+                video.setAttribute('playsinline', '');
+                video.setAttribute('webkit-playsinline', '');
                 
-                // Remove controls after video loads
+                // Remove controls immediately
+                function removeControls() {
+                    video.removeAttribute('controls');
+                    video.controls = false;
+                    
+                    // Also try to hide via style
+                    const style = video.getAttribute('style') || '';
+                    if (!style.includes('pointer-events')) {
+                        video.setAttribute('style', style + '; pointer-events: none; -webkit-touch-callout: none;');
+                    }
+                }
+                
+                removeControls();
+                
+                // Function to play video
+                function playVideo() {
+                    const playPromise = video.play();
+                    if (playPromise !== undefined) {
+                        playPromise.catch(error => {
+                            // Autoplay was prevented, try again
+                            console.log('Autoplay prevented, retrying...');
+                            setTimeout(() => {
+                                video.play().catch(() => {
+                                    // If still fails, wait for user interaction
+                                    document.addEventListener('touchstart', function playOnTouch() {
+                                        video.play();
+                                        document.removeEventListener('touchstart', playOnTouch);
+                                    }, { once: true });
+                                });
+                            }, 100);
+                        });
+                    }
+                }
+                
+                // Try to play immediately
+                playVideo();
+                
+                // Try to play when video is ready
                 video.addEventListener('loadedmetadata', function() {
-                    this.removeAttribute('controls');
-                    this.controls = false;
+                    removeControls();
+                    playVideo();
                 }, { once: true });
                 
-                // Remove controls when video starts playing
-                video.addEventListener('playing', function() {
-                    this.removeAttribute('controls');
-                    this.controls = false;
+                video.addEventListener('loadeddata', function() {
+                    removeControls();
+                    playVideo();
                 }, { once: true });
+                
+                video.addEventListener('canplay', function() {
+                    removeControls();
+                    playVideo();
+                }, { once: true });
+                
+                // Remove controls on various events
+                ['playing', 'play', 'timeupdate'].forEach(event => {
+                    video.addEventListener(event, removeControls, { passive: true });
+                });
+                
+                // Continuous check for iOS (runs every 200ms, more efficient)
+                let checkInterval = setInterval(function() {
+                    if (video.hasAttribute('controls')) {
+                        removeControls();
+                    }
+                    // Also check if controls property is true
+                    if (video.controls) {
+                        video.controls = false;
+                    }
+                    // Ensure video is playing
+                    if (video.paused) {
+                        playVideo();
+                    }
+                }, 200);
+                
+                // Stop checking after 10 seconds to save resources
+                setTimeout(function() {
+                    clearInterval(checkInterval);
+                }, 10000);
+                
+                // Also try to play on any user interaction
+                ['touchstart', 'touchend', 'click'].forEach(event => {
+                    document.addEventListener(event, function() {
+                        playVideo();
+                    }, { once: true, passive: true });
+                });
             }
         })();
     </script>

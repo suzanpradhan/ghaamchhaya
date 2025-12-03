@@ -57,6 +57,12 @@
         }
         
         /* Hide video controls in Safari and all browsers */
+        .video-bg video {
+            appearance: none;
+            -webkit-appearance: none;
+            -webkit-tap-highlight-color: transparent;
+        }
+        
         .video-bg video::-webkit-media-controls {
             display: none !important;
         }
@@ -74,6 +80,34 @@
         }
         
         .video-bg video::-webkit-media-controls-start-playback-button {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-overlay-play-button {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-timeline {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-current-time-display {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-time-remaining-display {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-mute-button {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-volume-slider {
+            display: none !important;
+        }
+        
+        .video-bg video::-webkit-media-controls-fullscreen-button {
             display: none !important;
         }
         
@@ -128,7 +162,7 @@
 
 <body class="bg-black overflow-hidden">
     <div class="video-bg">
-        <video autoplay muted loop playsinline disablePictureInPicture webkit-playsinline>
+        <video autoplay muted loop playsinline disablePictureInPicture webkit-playsinline controls="false" controlsList="nodownload nofullscreen noremoteplayback">
             <source src="https://classxpresentation.s3.ap-southeast-1.amazonaws.com/ghaam_chhaya_intro.mp4" type="video/mp4">
         </video>
     </div>

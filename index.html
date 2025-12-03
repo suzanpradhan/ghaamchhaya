@@ -54,61 +54,113 @@
             width: 100%;
             height: 100%;
             object-fit: cover;
-        }
-        
-        /* Hide video controls in Safari and all browsers */
-        .video-bg video {
             appearance: none;
             -webkit-appearance: none;
             -webkit-tap-highlight-color: transparent;
+            pointer-events: none;
         }
         
+        /* Hide video controls in Safari and all browsers - iOS specific */
         .video-bg video::-webkit-media-controls {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-enclosure {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+            width: 0 !important;
+            height: 0 !important;
         }
         
         .video-bg video::-webkit-media-controls-panel {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-play-button {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-start-playback-button {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-overlay-play-button {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-timeline {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-current-time-display {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-time-remaining-display {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-mute-button {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-volume-slider {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
         }
         
         .video-bg video::-webkit-media-controls-fullscreen-button {
             display: none !important;
+            opacity: 0 !important;
+            visibility: hidden !important;
+            pointer-events: none !important;
+        }
+        
+        /* Additional iOS Safari specific hiding */
+        @supports (-webkit-touch-callout: none) {
+            .video-bg video {
+                -webkit-touch-callout: none;
+            }
+            
+            .video-bg video::-webkit-media-controls {
+                display: none !important;
+                opacity: 0 !important;
+                visibility: hidden !important;
+                pointer-events: none !important;
+                width: 0 !important;
+                height: 0 !important;
+            }
         }
         
         .video-bg::after {
@@ -162,7 +214,7 @@
 
 <body class="bg-black overflow-hidden">
     <div class="video-bg">
-        <video autoplay muted loop playsinline disablePictureInPicture webkit-playsinline controls="false" controlsList="nodownload nofullscreen noremoteplayback">
+        <video autoplay muted loop playsinline disablePictureInPicture webkit-playsinline preload="auto" x-webkit-airplay="deny" style="pointer-events: none; -webkit-touch-callout: none;">
             <source src="https://classxpresentation.s3.ap-southeast-1.amazonaws.com/ghaam_chhaya_intro.mp4" type="video/mp4">
         </video>
     </div>
@@ -175,5 +227,28 @@
             Pre Order Ghaam Chhaya
         </a>
     </div>
+    
+    <script>
+        // Remove controls attribute for iOS
+        (function() {
+            const video = document.querySelector('.video-bg video');
+            if (video) {
+                video.removeAttribute('controls');
+                video.controls = false;
+                
+                // Remove controls after video loads
+                video.addEventListener('loadedmetadata', function() {
+                    this.removeAttribute('controls');
+                    this.controls = false;
+                }, { once: true });
+                
+                // Remove controls when video starts playing
+                video.addEventListener('playing', function() {
+                    this.removeAttribute('controls');
+                    this.controls = false;
+                }, { once: true });
+            }
+        })();
+    </script>
 </body>
 </html>

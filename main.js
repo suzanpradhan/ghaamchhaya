@@ -24,19 +24,18 @@
     if (typeof IS_FINISHED !== 'undefined' && IS_FINISHED) return;
     if (typeof TARGET_DATE === 'undefined') return;
     
+    const el = document.getElementById('countdown');
+    
     function updateCountdown() {
         const diff = TARGET_DATE - Date.now();
         
         if (diff > 0) {
-            const d = Math.floor(diff / 86400000);
-            const h = Math.floor((diff % 86400000) / 3600000);
-            const m = Math.floor((diff % 3600000) / 60000);
-            const s = Math.floor((diff % 60000) / 1000);
+            const d = String(Math.floor(diff / 86400000)).padStart(2, '0');
+            const h = String(Math.floor((diff % 86400000) / 3600000)).padStart(2, '0');
+            const m = String(Math.floor((diff % 3600000) / 60000)).padStart(2, '0');
+            const s = String(Math.floor((diff % 60000) / 1000)).padStart(2, '0');
             
-            document.getElementById('days').textContent = String(d).padStart(2, '0');
-            document.getElementById('hours').textContent = String(h).padStart(2, '0');
-            document.getElementById('minutes').textContent = String(m).padStart(2, '0');
-            document.getElementById('seconds').textContent = String(s).padStart(2, '0');
+            el.textContent = `${d}:${h}:${m}:${s}`;
         } else {
             document.getElementById('countdownTimer').classList.add('hidden');
             document.getElementById('finishedTitle').classList.remove('hidden');

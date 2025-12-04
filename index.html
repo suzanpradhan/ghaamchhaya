@@ -32,9 +32,6 @@
     <meta name="twitter:image" content="https://ghaamchhaya.vercel.app/og_ghaam_chhaya.jpg">
 
     <script src="https://cdn.tailwindcss.com"></script>
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="/styles.css">
 </head>
 
@@ -68,33 +65,13 @@
             <!-- Countdown Timer -->
             <div id="countdownTimer" class="countdown-container mb-4">
                 <script>document.currentScript.parentElement.classList.toggle('hidden', IS_FINISHED);</script>
-                <div class="flex items-center gap-2">
-                    <div class="countdown-box rounded-lg px-3 py-2 md:px-4 md:py-3 text-center min-w-[60px] md:min-w-[72px]">
-                        <div id="days" class="countdown-value text-white text-2xl md:text-3xl">00</div>
-                        <div class="countdown-label text-white/60 text-[10px] md:text-xs uppercase">Days</div>
-                    </div>
-                    <span class="countdown-separator text-white/50 text-xl md:text-2xl font-light">:</span>
-                    <div class="countdown-box rounded-lg px-3 py-2 md:px-4 md:py-3 text-center min-w-[60px] md:min-w-[72px]">
-                        <div id="hours" class="countdown-value text-white text-2xl md:text-3xl">00</div>
-                        <div class="countdown-label text-white/60 text-[10px] md:text-xs uppercase">Hours</div>
-                    </div>
-                    <span class="countdown-separator text-white/50 text-xl md:text-2xl font-light">:</span>
-                    <div class="countdown-box rounded-lg px-3 py-2 md:px-4 md:py-3 text-center min-w-[60px] md:min-w-[72px]">
-                        <div id="minutes" class="countdown-value text-white text-2xl md:text-3xl">00</div>
-                        <div class="countdown-label text-white/60 text-[10px] md:text-xs uppercase">Mins</div>
-                    </div>
-                    <span class="countdown-separator text-white/50 text-xl md:text-2xl font-light">:</span>
-                    <div class="countdown-box rounded-lg px-3 py-2 md:px-4 md:py-3 text-center min-w-[60px] md:min-w-[72px]">
-                        <div id="seconds" class="countdown-value text-white text-2xl md:text-3xl">00</div>
-                        <div class="countdown-label text-white/60 text-[10px] md:text-xs uppercase">Secs</div>
-                    </div>
-                </div>
+                <div id="countdown" class="countdown-text text-white text-4xl md:text-6xl tracking-tight">00:00:00:00</div>
             </div>
             
             <a 
                 id="orderBtn"
                 href="https://uat.classxpresentation.com/global/shop/product/ghaam-chhaya" 
-                class="splash-btn px-4 py-2 bg-white/90 text-black rounded-lg text-sm hover:bg-white shadow-2xl"
+                class="splash-btn px-4 py-2 bg-white/90 text-black rounded-lg text-sm md:text-base hover:bg-white shadow-2xl"
             ><script>document.write(IS_FINISHED ? 'Buy Now' : 'Pre Order Ghaam Chhaya');</script></a>
         </div>
     </div>
